@@ -1,0 +1,77 @@
+## Linux Homework 1
+## Kristin Charles 
+
+Part I 
+
+1. What is a GUI and how does that differ from the command line? ## A GUI is a graphic user interface that 
+relies on the user clicking on menus/buttons/graphics to perform a task as opposed to typing out a command
+2. What does the shell do? ## The shell is typically a desktop program that allows for execution of other programs, though derivatives such as "shell in a box" allow programs to be executed online
+3. What is the command used for listing things in a directory? ## $ ls 
+4. What is the command used for changing directories? ## $ cd
+5. What command would you use to get your current working directory? ## $ pwd 
+6. How do you get the manual for these commands? ## $ man [enter program here]
+7. What does the shell prompt look like? ## User name/id followed by path, followed by $ or % (for example, my current shell prompt is: kristincharles@Kristins-MacBook-Pro bioinformatics % 
+8. How would you list things in a directory in chronological order? ## ls -t 
+9. Name two ways to get to the ‘home’ or ‘root’ directory. ## cd ~/
+10. What is the difference between an absolute path and a relative path? ## The absolute path contains the root directory and all subsequent directories, and can be used to navigate to a directory from anywhere. The relative path is relative to whichever current directory you are in. 
+11. What are the two relative path directories we talked about and what do they mean? ## ./ current working directory, ../ previous working directory
+12. Why shouldn’t you put spaces in filenames? ## Because they can't be read by many programming languages and will result in an error
+13. Name a way to have multiple readable words in a filename without spaces? ## Use_underscores 
+14. What is the program nano, what does it do? Do you use nano? If not what do you use? ## Nano is a built in text editor in terminal that allows you to edit and save scripts 
+within the terminal. I do use nano. 
+15. * is a form of a wildcard. What does it mean? ## Depending on its placement, this matches everything with the pattern that comes before or after the wildcard  
+16. The following code would match what? ls *.txt ## this would match all files in the current working directory that end in .txt
+17. Why do we need to be careful with the mv command? ## Because it replaces the original file with the new one and deletes/renames the original permanently 
+18. Why do we need to be careful with the rm command? ## Because it permanently deletes whatever object you tell it to, and there is no undoing it. 
+19. What is the difference between > and >>? ## > directs the output to a new file/ overwrites it, whereas >> appends the file
+20. What does head do? ## head shows the first line of a file or program, and can be modified to show the first x number of whatever file feature you would like to see
+21. What is the purpose of | (pipe)? To use the output from one command in a different command with a single line of code
+22. Interpret the following command: cat huge_file.fasta | uniq | head -n 5 >proteins.fasta
+23. What is a loop and when would you use it? A loop is a script that runs through different files, or parts of a file iteratively. You can use loops when you want to perform 
+the same commands on multiple different files without having to run the program anew each time, and direct the information extracted from these different files to the same output file
+24. In a directory with the following files. What would the following loop do? apple.txt, banana.txt, orange.txt $ for filename in *.txt; do > cat ${filename} >>fruits.txt > done
+## this would concatenate the apple.txt, banana.txt, and orange.txt files into the fruits.txt file. 
+25. What is a shell script? ## A shell script is a program written to be run in Unix. Shell scripts begin with #!/bin/bash/, which tells terminal to run it in unix 
+26. What are the benefits of writing and running a script over typing the code in? ## you can avoid having to type out a script more than once/ risk making errors by having a 
+readily made executable script. You can either hard code the names of the files into the script or create a script that will allow you to enter the file names in the command line,
+thus simplifying the process substantially when the same script must be used more than once. 
+27. When looking at a script what does # mean? Why would you use one? ## The hashtag 'hashes' out whatever follows it, essentially telling unix that it is not part of the program and 
+should not be executed. This is typically used for comments/ documentation 
+28. What does grep stand for and what does it do? ## GREP stands for globally search regular expression and print, and is a versatile command that enables you to search for and match/redirect/etc certain parts of a file or files
+29. What does find do? ## This enables you to explore a file hierarchy, search by different categories, find files and directories and perform various actions upon them 
+
+Part II
+
+1. cd ~/Desktop
+$ ls  ##lists files/directories in desktop
+2.
+3. mkdir randomfolder ## make new directory called random folder
+touch randomfile1.txt 
+touch randomfile2.txt ##make 2 files that end in txt
+ls *.txt ##list all files in directory that end in txt
+
+4.  2382004 lines, 1191002 sequences
+$ wc -l Hutia_DNA.fasta          ## counts number of lines using -l flag of wc command
+$ grep -c "^>" Hutia_DNA.fasta   ## counts number of sequences, aka lines anchored by ">" character using grep count
+
+5. grep -v "^>" Hutia_DNA.fasta | head -n 100 > MyOutputfile.fasta ##inverted grep search for lines that do not match > (aka not labels), head to take first 100, export using > 
+uniq MyOutputFile.fasta  | wc -l  | sort -o uniqlines.txt  ## takes unique lines in myoutputfile, counts number of unique lines, then sorts them 
+## result is 100 unique lines, because I only exported the sequence lines from Hutia_DNA.fasta
+## If you wanted sequence and label lines, could take first 200 lines of file using head 
+
+6. for file in *.txt
+	cp file destination_directory 
+done 
+
+7. script name: run_findtaxa
+
+#!/bin/bash/
+
+for file in *.fasta
+	run find_taxa.py 
+done 
+                    ## executes find_taxa program on each fasta file in current working directory
+					## using wildcard 
+
+8. grep -c "GAGA" Hutia_DNA.fasta ## uses grep count to count all occurrences of GAGA in Hutia_DNA.fasta
+304806
