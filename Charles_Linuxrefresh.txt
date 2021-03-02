@@ -63,12 +63,13 @@ uniq MyOutputFile.fasta  | wc -l  | sort -o uniqlines.txt  ## takes unique l
 	cp file destination_directory 
 done 
 
-7. script name: run_findtaxa
+7. script name: run_findtaxa.sh
 
 #!/bin/bash/
 
 for file in *.fasta
-	run find_taxa.py 
+do 
+	python3 find_taxa.py $file
 done 
                     ## executes find_taxa program on each fasta file in current working directory
 					## using wildcard 
